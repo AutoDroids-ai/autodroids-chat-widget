@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chat widget preview</title>
+<style>
+  :root { color-scheme: light; }
+  body { margin:0; font:15px/1.5 -apple-system,Segoe UI,Roboto,Arial,sans-serif; color:#1e293b; background:#fff; }
+  .bar { display:flex; gap:14px; align-items:center; flex-wrap:wrap;
+         padding:12px 18px; background:#0f172a; color:#fff; position:sticky; top:0; z-index:10; }
+  .bar strong { font-size:13px; letter-spacing:.06em; text-transform:uppercase; opacity:.7; }
+  .bar select, .bar button { font:inherit; padding:6px 10px; border-radius:6px; border:1px solid #334155;
+         background:#1e293b; color:#fff; cursor:pointer; }
+  .bar .live { margin-left:auto; font-size:12px; opacity:.75; }
+  main { max-width:820px; padding:32px 18px 120px; }
+  h1 { font-size:26px; margin:0 0 8px; }
+  p  { color:#475569; max-width:60ch; }
+  .swatches { display:flex; gap:8px; flex-wrap:wrap; margin:20px 0 28px; }
+  .sw { font:12px/1 ui-monospace,Menlo,Consolas,monospace; padding:8px 10px; border-radius:6px;
+        border:1px solid #e2e8f0; display:flex; gap:8px; align-items:center; }
+  .chip { width:14px; height:14px; border-radius:3px; border:1px solid rgba(0,0,0,.15); }
+  code { background:#f1f5f9; padding:2px 5px; border-radius:4px; font-size:13px; }
+  .note { border-left:3px solid #0ea5e9; background:#f0f9ff; padding:12px 14px; border-radius:0 6px 6px 0; }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <strong>Preview</strong>
+  <select id="dealer"></select>
+  <button id="reload">Reload widget</button>
+  <button id="clearls">Clear saved store</button>
+  <span class="live" id="live">loading…</span>
+</div>
+
+<main>
+  <h1>Chat widget preview harness</h1>
+  <p>
+    Serves <code>src/engine.js</code> and <code>dealers/*.json</code> straight off disk with
+    <code>Cache-Control: no-store</code>. Edit a dealer config or the engine, hit refresh, see it.
+    No build, no tag, no CDN, no purge.
+  </p>
+  <div class="swatches" id="swatches"></div>
+  <div class="note">
+    This runs the same code path as a built bundle: the engine applies
+    <code>window.CW_CFG</code> last, so the config here lands exactly where the baked-in
+    dealer config would. CloseBot is <strong>mocked</strong> here — its real script refuses to mount on an
+    unrecognised domain (<code>/widget-for-page</code> returns 204). The mock reproduces its DOM and its
+    own theme CSS, including the inline <code>--cb-color</code>, so anything our CSS must beat is present.
+  </div>
+</main>
+
+<script>
+(async function () {
+  const qs = new URLSearchParams(location.search);
+  const sel = document.getElementById('dealer');
+  const live = document.getElementById('live');
+
+  // Discover dealers by trying the known list from the server banner isn't
+  // available client-side, so probe the directory listing we ship: dealers.json
+  // falls back to a hardcoded probe of common names.
+  let names = [];
+  try {
+    const r = await fetch('/preview/dealers.json', { cache: 'no-store' });
+    if (r.ok) names = await r.json();
+  } catch (e) {}
+  if (!names.length) names = ['mycar', 'goautobahn'];
+
+  const current = qs.get('dealer') || names[0];
+  names.forEach(n => {
+    const o = document.createElement('option');
+    o.value = n; o.textContent = n;
+    if (n === current) o.selected = true;
+    sel.appendChild(o);
+  });
+  sel.onchange = () => { location.search = '?dealer=' + sel.value; };
+
+  document.getElementById('reload').onclick = () => location.reload();
+  document.getElementById('clearls').onclick = () => {
+    try { Object.keys(localStorage).forEach(k => /_store$/.test(k) && localStorage.removeItem(k)); } catch (e) {}
+    location.reload();
+  };
+
+  const cfg = await fetch('/dealers/' + current + '.json', { cache: 'no-store' }).then(r => r.json());
+  // Strip the _-prefixed doc keys, same as build.js does.
+  Object.keys(cfg).filter(k => k[0] === '_').forEach(k => delete cfg[k]);
+  window.CW_CFG = cfg;
+
+  // Swatches so a colour change is obvious without opening DevTools.
+  const sw = document.getElementById('swatches');
+  ['brand','brandDark','ink','tint','bubbleBg','bubbleText','bubbleBorder','border','control']
+    .filter(k => cfg[k]).forEach(k => {
+      const d = document.createElement('div');
+      d.className = 'sw';
+      d.innerHTML = '<span class="chip" style="background:' + cfg[k] + '"></span>' + k + ' ' + cfg[k];
+      sw.appendChild(d);
+    });
+  ['radius','radiusPanel','radiusBubble'].filter(k => cfg[k] != null).forEach(k => {
+    const d = document.createElement('div'); d.className = 'sw';
+    d.textContent = k + ' ' + cfg[k] + 'px'; sw.appendChild(d);
+  });
+  const f = document.createElement('div'); f.className = 'sw';
+  f.textContent = 'font ' + (cfg.font || '').split(',')[0]; sw.appendChild(f);
+
+  cfg.loadClosebot = false;   // the harness mocks CloseBot; never pull the real script
+
+  await new Promise(function (res, rej) {
+    const m = document.createElement('script');
+    m.src = '/preview/mock.js';
+    m.onload = res; m.onerror = rej;
+    document.body.appendChild(m);
+  });
+
+  const s = document.createElement('script');
+  s.src = '/src/engine.js';           // no-store, so edits show on refresh
+  s.onload = () => {
+    live.textContent = current + ' · engine loaded · source=' + (cfg.closebotSource || '—');
+  };
+  s.onerror = () => { live.textContent = 'FAILED to load src/engine.js'; };
+  document.body.appendChild(s);
+})();
+</script>
+</body>
+</html>

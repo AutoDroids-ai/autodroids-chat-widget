@@ -117,4 +117,8 @@ for (const file of dealers) {
   console.log(`      loader -> ${tag}  sha384-${hash.slice(0, 12)}...`);
 }
 
+// Keep the preview harness's dealer picker in step with dealers/.
+fs.writeFileSync(path.join(__dirname,'preview','dealers.json'),
+  JSON.stringify(dealers.map(f => path.basename(f,'.json')), null, 2) + String.fromCharCode(10), 'utf8');
+
 process.exit(failed ? 1 : 0);
