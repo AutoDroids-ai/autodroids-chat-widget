@@ -64,14 +64,14 @@ for f in dist/*.js; do
   [ "$ok" = 1 ] || { echo "ABORT: $name never went live at $SHA. Loaders NOT repointed; dealers stay on the previous version."; exit 1; }
 done
 
-echo "==> purge loader + manifest so dealers pick up $SHA"
+echo "==> confirm manifest on raw + purge the loader file"
 for f in dist/loader/*.json; do
   name=$(basename "$f" .json)
   ok=0
   for try in 1 2 3 4; do
     curl -s --max-time 60 "$PURGE@main/dist/loader/$name.json" -o /dev/null
     curl -s --max-time 60 "$PURGE@main/dist/loader/$name.js"   -o /dev/null
-    live=$(curl -sL --max-time 60 "$CDN@main/dist/loader/$name.json" | grep -oE "widget@[0-9a-f]{7,40}" | head -1 | sed "s/widget@//")
+    live=$(curl -sL --max-time 60 "https://raw.githubusercontent.com/$REPO/main/dist/loader/$name.json" | grep -oE "widget@[0-9a-f]{7,40}" | head -1 | sed "s/widget@//")
     if [ "$live" = "$SHA" ]; then echo "    manifest $name  -> $SHA"; ok=1; break; fi
   done
   [ "$ok" = 1 ] || echo "    manifest $name  still ${live:-unknown} — re-run the purge; dealers stay on the previous good version meanwhile"
