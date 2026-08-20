@@ -3,7 +3,7 @@
  * Reads dist/loader/mycar.json fresh on every load, so deploys land without
  * a dealer-side edit and without waiting out jsDelivr's 7-day browser cache. */
 (function () {
-  var FALLBACK = { src: 'https://cdn.jsdelivr.net/gh/AutoDroids-ai/autodroids-chat-widget@abc1234def/dist/mycar.js', integrity: 'sha384-ff6APc8ToQ6tyRfd5CoqI4CjB0snNGpKsMhBtNecOL49gc5t3C9367ONu9AqR0M9' };
+  var FALLBACK = { src: 'https://cdn.jsdelivr.net/gh/AutoDroids-ai/autodroids-chat-widget@ff8deb49d9/dist/mycar.js', integrity: 'sha384-ff6APc8ToQ6tyRfd5CoqI4CjB0snNGpKsMhBtNecOL49gc5t3C9367ONu9AqR0M9' };
   var MANIFEST = 'https://cdn.jsdelivr.net/gh/AutoDroids-ai/autodroids-chat-widget@main/dist/loader/mycar.json';
   var done = false;
   function inject(m) {
