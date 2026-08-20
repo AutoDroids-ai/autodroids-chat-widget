@@ -3,8 +3,8 @@
  * Deploy = rebuild against a new tag, push main, purge this URL. */
 (function () {
   var s = document.createElement('script');
-  s.src = 'https://cdn.jsdelivr.net/gh/AutoDroids-ai/autodroids-chat-widget@v1.2.0/dist/goautobahn.js';
-  s.integrity = 'sha384-aH+Vgx9kapbQ5yfK6TU5aJXolM4NQzOLo/Ejvq0yXdcvligd9KImHhObI05Za9Gk';
+  s.src = 'https://cdn.jsdelivr.net/gh/AutoDroids-ai/autodroids-chat-widget@abc1234/dist/goautobahn.js';
+  s.integrity = 'sha384-fQYygyRIo0HAGIrzgieKrWg8kvzCWC5eq7xE7/xqMPjZ0xdxIul5tMa5tvsKOKSF';
   s.crossOrigin = 'anonymous';
   s.defer = true;
   document.head.appendChild(s);

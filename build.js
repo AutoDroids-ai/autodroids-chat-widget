@@ -35,8 +35,8 @@ if (!engine.includes(MARKER)) {
   console.error('build: marker ' + MARKER + ' not found in src/engine.js');
   process.exit(1);
 }
-if (tag && !/^v\d+\.\d+\.\d+$/.test(tag)) {
-  console.error('build: tag must look like v1.2.3, got ' + tag);
+if (tag && !/^(v[0-9]+[.][0-9]+[.][0-9]+|[0-9a-f]{7,40})$/.test(tag)) {
+  console.error('build: ref must be a v1.2.3 tag or a commit sha, got ' + tag);
   process.exit(1);
 }
 
