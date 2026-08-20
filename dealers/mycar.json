@@ -1,0 +1,26 @@
+{
+  "_site": "https://www.mycar.ca/",
+  "_account": "MyCar",
+  "_palette": "from ed-template-gm-child-gmc/child.23e95.css — #107cbd primary, #385f71 steel, #464646 dark",
+  "closebotSource": "YKejTuxKce8UG7pn",
+  "brand": "#107cbd",
+  "brandDark": "#0c5e8f",
+  "ink": "#302f2f",
+  "tint": "#eef6fb",
+  "font": "Poppins,'Helvetica Neue',Arial,sans-serif",
+  "fontUrl": "https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap",
+  "avatar": "",
+  "storageKey": "mc_store",
+  "urlParamName": "mc_store",
+  "locations": [
+    { "name": "MyCar North Bay",        "tag": "north-bay" },
+    { "name": "MyCar Kingston",         "tag": "kingston" },
+    { "name": "MyCar Richmond (Ottawa)", "tag": "richmond" }
+  ],
+  "actions": [
+    ["\ud83d\ude97 Browse inventory",  "I'm looking at inventory — what do you have?"],
+    ["\ud83d\udcb3 Get pre-approved",  "I want to see what I qualify for."],
+    ["\ud83d\udd11 Trade-in value",    "I have a trade-in I want to ask about."],
+    ["\ud83d\udcc5 Book a test drive", "I'd like to book a test drive."]
+  ]
+}

@@ -1,0 +1,6 @@
+# Served over a CDN with an SRI hash — line endings must never drift,
+# or the hash breaks and browsers refuse to execute the script.
+*.js text eol=lf
+*.cjs text eol=lf
+*.sh text eol=lf
+*.md text eol=lf

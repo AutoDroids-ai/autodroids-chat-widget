@@ -1,0 +1,26 @@
+{
+  "_site": "https://www.goautobahn.ca/",
+  "_account": "Go Autobahn parent (chat distribution)",
+  "closebotSource": "EUvBaM2omo58x5z5",
+  "brand": "#e60000",
+  "brandDark": "#b30000",
+  "ink": "#072431",
+  "tint": "#ecf5fa",
+  "font": "Roboto,'Helvetica Neue',Arial,sans-serif",
+  "fontUrl": "https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap",
+  "avatar": "https://assets.cdn.filesafe.space/9bx2QD2Kp1dmqXtgGoYb/media/6a033c519bfd1bb688936189.png",
+  "storageKey": "ab_store",
+  "urlParamName": "ab_store",
+  "locations": [
+    { "name": "Victoria AutoBahn",     "tag": "victoria" },
+    { "name": "Nanaimo AutoBahn",      "tag": "nanaimo" },
+    { "name": "Abbotsford AutoBahn",   "tag": "abbotsford" },
+    { "name": "Grande Cache AutoBahn", "tag": "grande-cache" }
+  ],
+  "actions": [
+    ["\ud83d\ude97 Browse inventory",  "I'm looking at inventory — what do you have?"],
+    ["\ud83d\udcb3 Get pre-approved",  "I want to see what I qualify for."],
+    ["\ud83d\udd11 Trade-in value",    "I have a trade-in I want to ask about."],
+    ["\ud83d\udcc5 Book a test drive", "I'd like to book a test drive."]
+  ]
+}
