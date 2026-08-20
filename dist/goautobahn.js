@@ -172,7 +172,8 @@
         'background:#fff url("' + CFG.avatar + '") center 25%/cover no-repeat;pointer-events:none}'
       : '',
     '[data-cb] .cb-header :is([class*=chatter],[class*=status],img){display:none!important}',
-    '[data-cb] .cb-header,[data-cb] .cb-header *{color:#fff!important;background-color:transparent!important}',
+    '[data-cb] .cb-header{color:#fff!important}',
+    '[data-cb] .cb-header *{color:#fff!important;background-color:transparent!important}',
 
     /* 3. Dealer vs customer bubbles */
     '[data-cb] .cb-msg{padding:11px 14px!important;line-height:1.45!important;font-size:14px!important}',

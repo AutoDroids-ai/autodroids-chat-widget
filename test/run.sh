@@ -15,4 +15,5 @@ for f in dist/*.js; do
   node test/loader.cjs   "$f" "$src"
   node test/picker.cjs   "$f"
   node test/tenancy.cjs  "$f"
+  node test/header.cjs   "$f"
 done
