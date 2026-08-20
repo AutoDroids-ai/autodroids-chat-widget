@@ -9,7 +9,7 @@
   "tint": "#eef6fb",
   "font": "Poppins,'Helvetica Neue',Arial,sans-serif",
   "fontUrl": "https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap",
-  "avatar": "",
+  "avatar": "https://ddztmb1ahc6o7.cloudfront.net/mycar/wp-content/uploads/2025/10/22091901/android-chrome-512x512-1.png",
   "storageKey": "mc_store",
   "urlParamName": "mc_store",
   "locations": [
@@ -54,5 +54,6 @@
     "#2b6d92 55%",
     "#385f71"
   ],
-  "headerRule": "rgba(255,255,255,.28)"
+  "headerRule": "rgba(255,255,255,.28)",
+  "_avatar": "their own site CDN (same asset pipeline as mycar.ca), not a GHL sub-account"
 }
