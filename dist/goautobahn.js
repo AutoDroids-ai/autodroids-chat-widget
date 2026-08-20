@@ -73,7 +73,18 @@
       "📅 Book a test drive",
       "I'd like to book a test drive."
     ]
-  ]
+  ],
+  "border": "#e6e6e6",
+  "control": "#cfdbe3",
+  "radius": 8,
+  "radiusPanel": 10,
+  "radiusBubble": 12,
+  "headerGradient": [
+    "#072431",
+    "#0d3446 55%",
+    "#232323"
+  ],
+  "headerRule": "#e60000"
 };
 
   // Generic defaults. Anything dealer-specific belongs in dealers/<name>.json;
@@ -88,6 +99,16 @@
     avatar:     '',          // '' = no header avatar
     darkCanvas: false,
     storageKey: 'cw_store',
+
+    // Surfaces + corner rounding. Take these from the dealer's own theme CSS —
+    // rounding is one of the strongest brand cues and varies a lot by dealer.
+    border:  '#e6e6e6',      // hairlines
+    control: '#cfdbe3',      // input / select / chip borders
+    radius:       8,         // controls
+    radiusPanel: 10,
+    radiusBubble:12,
+    headerGradient: [],      // [] = flat ink. Entries may carry a stop, '#abc 55%'
+    headerRule:     '',      // '' = brand
 
     loadClosebot:   true,
     closebotSource: '',      // REQUIRED — set per dealer
@@ -106,35 +127,53 @@
   var softTx = CFG.darkCanvas ? '#e5e7eb' : '#232323';
   var chev   = encodeURIComponent(CFG.ink);
 
+  function rgba(hex, a) {
+    var h = String(hex).replace('#', '');
+    if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
+    var n = parseInt(h, 16);
+    return 'rgba(' + ((n >> 16) & 255) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')';
+  }
+
+  var hg       = CFG.headerGradient && CFG.headerGradient.length ? CFG.headerGradient : [CFG.ink];
+  var headerBg = hg.length > 1 ? 'linear-gradient(135deg,' + hg.join(',') + ')' : hg[0];
+  var hRule    = CFG.headerRule || CFG.brand;
+  var rC = CFG.radius, rP = CFG.radiusPanel, rB = CFG.radiusBubble;
+  var rSm = Math.min(4, rB), rXs = Math.min(3, rB);   // the clipped bubble corners
+
   var CSS = [
     ':root{--cw-red:' + CFG.brand + ';--cw-red-d:' + CFG.brandDark + ';--cw-ink:' + CFG.ink +
-      ';--cw-tint:' + CFG.tint + ';--cw-bd:#cfdbe3;--cw-f:' + CFG.font + '}',
+      ';--cw-tint:' + CFG.tint + ';--cw-bd:' + CFG.control + ';--cw-line:' + CFG.border +
+      ';--cw-f:' + CFG.font + '}',
 
     /* 1. Brand tokens — !important beats CloseBot's inline --cb-color */
     '[data-cb].cb-panel,[data-cb].cb-panel.cb-theme-dark{--cb-color:var(--cw-red)!important;--cb-bg:' + canvas +
       '!important;--cb-soft-bg:' + soft + '!important;--cb-text:' + softTx +
-      '!important;--cb-muted:#7c7c7c!important;--cb-border:#e6e6e6!important;--cb-input-bg:#fff!important;' +
+      '!important;--cb-muted:#7c7c7c!important;--cb-border:' + CFG.border + '!important;--cb-input-bg:#fff!important;' +
       '--cb-scrollbar-thumb:#d3d3d3!important;width:400px!important;height:660px!important;max-width:92vw!important;' +
-      'max-height:82vh!important;border-radius:10px!important;box-shadow:0 18px 50px rgba(7,36,49,.3)!important}',
+      'max-height:82vh!important;border-radius:' + rP + 'px!important;box-shadow:0 18px 50px ' + rgba(CFG.ink, .3) + '!important}',
     '[data-cb],[data-cb] *{font-family:var(--cw-f)!important}',
     '[data-cb] .cb-messages{scrollbar-width:none!important;padding:14px 12px!important;gap:10px!important}',
     '[data-cb] .cb-messages::-webkit-scrollbar{display:none!important;width:0!important}',
 
     /* 2. Header */
-    '[data-cb] .cb-header{position:relative!important;min-height:72px!important;padding:14px 16px 14px 78px!important;' +
-      'font-weight:700!important;background:linear-gradient(135deg,#072431,#0d3446 55%,#232323)!important;' +
-      'border-bottom:3px solid var(--cw-red)!important}',
-    '[data-cb] .cb-header::before{content:"";position:absolute;left:14px;top:50%;transform:translateY(-50%);width:52px;' +
-      'height:52px;border-radius:50%;border:2px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.35);' +
-      'background:#fff url("' + CFG.avatar + '") center 25%/cover no-repeat;pointer-events:none}',
+    '[data-cb] .cb-header{position:relative!important;min-height:72px!important;padding:14px 16px 14px ' +
+      (CFG.avatar ? '78px' : '16px') + '!important;font-weight:700!important;background:' + headerBg +
+      '!important;border-bottom:3px solid ' + hRule + '!important}',
+    CFG.avatar
+      ? '[data-cb] .cb-header::before{content:"";position:absolute;left:14px;top:50%;transform:translateY(-50%);width:52px;' +
+        'height:52px;border-radius:50%;border:2px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.35);' +
+        'background:#fff url("' + CFG.avatar + '") center 25%/cover no-repeat;pointer-events:none}'
+      : '',
     '[data-cb] .cb-header :is([class*=chatter],[class*=status],img){display:none!important}',
     '[data-cb] .cb-header,[data-cb] .cb-header *{color:#fff!important;background-color:transparent!important}',
 
     /* 3. Dealer vs customer bubbles */
     '[data-cb] .cb-msg{padding:11px 14px!important;line-height:1.45!important;font-size:14px!important}',
     '[data-cb] .cb-msg.bot{background:' + soft + '!important;color:' + softTx +
-      '!important;border-left:3px solid var(--cw-red)!important;border-radius:4px 12px 12px 4px!important}',
-    '[data-cb] .cb-msg.lead{background:var(--cw-ink)!important;color:#fff!important;border-radius:12px 12px 3px 12px!important}',
+      '!important;border-left:3px solid var(--cw-red)!important;border-radius:' +
+      rSm + 'px ' + rB + 'px ' + rB + 'px ' + rSm + 'px!important}',
+    '[data-cb] .cb-msg.lead{background:var(--cw-ink)!important;color:#fff!important;border-radius:' +
+      rB + 'px ' + rB + 'px ' + rXs + 'px ' + rB + 'px!important}',
     '[data-cb] .cb-msg.bot a{color:var(--cw-red)!important;text-decoration:underline!important}',
     '[data-cb] .cb-msg.lead a{color:#fff!important;text-decoration:underline!important}',
     '[data-cb] .cb-msg-item.bot{max-width:90%!important}',
@@ -146,26 +185,24 @@
     /* 4. Footer — dark surround, light input */
     '[data-cb] .cb-footer{padding:12px!important;gap:8px!important;background:var(--cw-ink)!important;border-top:0!important}',
     '[data-cb] .cb-input{background:#fff!important;color:var(--cw-ink)!important;border:1px solid rgba(255,255,255,.2)!important;' +
-      'border-radius:8px!important;padding:12px 14px!important}',
+      'border-radius:' + rC + 'px!important;padding:12px 14px!important}',
     '[data-cb] .cb-input::placeholder{color:#7c7c7c!important;opacity:1!important}',
-    '[data-cb] .cb-input:focus{border-color:var(--cw-red)!important;box-shadow:0 0 0 3px rgba(230,0,0,.35)!important}',
+    '[data-cb] .cb-input:focus{border-color:var(--cw-red)!important;box-shadow:0 0 0 3px ' + rgba(CFG.brand, .35) + '!important}',
     '[data-cb] .cb-send{width:42px!important;height:42px!important;padding:0!important;flex-shrink:0!important;border-radius:50%!important}',
     '[data-cb] .cb-send:hover{background:var(--cw-red-d)!important}',
     '[data-cb].cb-btn{background:linear-gradient(135deg,var(--cw-red),var(--cw-red-d))!important;border:2px solid #fff!important;' +
-      'box-shadow:0 8px 24px rgba(230,0,0,.4)!important}',
+      'box-shadow:0 8px 24px ' + rgba(CFG.brand, .4) + '!important}',
 
     /* 5. Location picker + quick actions */
-    '.cw-bar{background:#fff;border-top:1px solid #e6e6e6}',
+    '.cw-bar{background:#fff;border-top:1px solid var(--cw-line)}',
     '.cw-bar .is-hidden,.cw-bar.is-hidden{display:none!important}',
-    '.cw-loc{display:flex;align-items:center;gap:8px;padding:9px 12px;background:var(--cw-tint);border-bottom:1px solid #e6e6e6}',
+    '.cw-loc{display:flex;align-items:center;gap:8px;padding:9px 12px;background:var(--cw-tint);border-bottom:1px solid var(--cw-line)}',
     '.cw-loc>span{font:700 10.5px/1 var(--cw-f);letter-spacing:.07em;text-transform:uppercase;color:var(--cw-ink);white-space:nowrap}',
-    '.cw-loc select{flex:1;min-width:0;-webkit-appearance:none;appearance:none;border:1px solid var(--cw-bd);border-radius:8px;' +
-      'padding:9px 30px 9px 11px;font:500 13px/1.2 var(--cw-f);color:var(--cw-ink);cursor:pointer;background:#fff ' +
+    '.cw-loc select{flex:1;min-width:0;-webkit-appearance:none;appearance:none;border:1px solid var(--cw-bd);border-radius:' +
+      rC + 'px;padding:9px 30px 9px 11px;font:500 13px/1.2 var(--cw-f);color:var(--cw-ink);cursor:pointer;background:#fff ' +
       'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'8\'>' +
       '<path d=\'M1 1l5 5 5-5\' fill=\'none\' stroke=\'' + chev + '\' stroke-width=\'2\'/></svg>") no-repeat right 11px center}',
-    '.cw-loc select:focus{border-color:var(--cw-red);box-shadow:0 0 0 3px rgba(230,0,0,.15);outline:none}',
-    // Once a store is set the dropdown collapses to a compact confirmation +
-    // Change link, so the picker is out of the way but never unreachable.
+    '.cw-loc select:focus{border-color:var(--cw-red);box-shadow:0 0 0 3px ' + rgba(CFG.brand, .15) + ';outline:none}',
     '.cw-loc .cw-cur,.cw-loc .cw-chg{display:none}',
     '.cw-loc.is-set select{display:none}',
     '.cw-loc.is-set .cw-cur{display:block;flex:1;min-width:0;font:700 12.5px/1.2 var(--cw-f);color:var(--cw-ink);' +
@@ -174,9 +211,9 @@
       'padding:4px 2px;cursor:pointer;text-decoration:underline;white-space:nowrap}',
     '.cw-qa{display:flex;flex-wrap:wrap;gap:6px;padding:9px 12px}',
     '.cw-qa button{font:500 12.5px/1 var(--cw-f);color:var(--cw-ink);background:#fff;border:1px solid var(--cw-bd);' +
-      'border-radius:8px;padding:9px 11px;cursor:pointer;transition:background .15s,color .15s,border-color .15s}',
+      'border-radius:' + rC + 'px;padding:9px 11px;cursor:pointer;transition:background .15s,color .15s,border-color .15s}',
     '.cw-qa button:hover{background:var(--cw-red);border-color:var(--cw-red);color:#fff}'
-  ].join('\n');
+  ].filter(Boolean).join('\n');
 
   function injectCSS() {
     if (CFG.fontUrl && !document.querySelector('link[data-cw-font]')) {

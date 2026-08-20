@@ -12,15 +12,50 @@
   "storageKey": "ab_store",
   "urlParamName": "ab_store",
   "locations": [
-    { "name": "Victoria AutoBahn",     "tag": "victoria" },
-    { "name": "Nanaimo AutoBahn",      "tag": "nanaimo" },
-    { "name": "Abbotsford AutoBahn",   "tag": "abbotsford" },
-    { "name": "Grande Cache AutoBahn", "tag": "grande-cache" }
+    {
+      "name": "Victoria AutoBahn",
+      "tag": "victoria"
+    },
+    {
+      "name": "Nanaimo AutoBahn",
+      "tag": "nanaimo"
+    },
+    {
+      "name": "Abbotsford AutoBahn",
+      "tag": "abbotsford"
+    },
+    {
+      "name": "Grande Cache AutoBahn",
+      "tag": "grande-cache"
+    }
   ],
   "actions": [
-    ["\ud83d\ude97 Browse inventory",  "I'm looking at inventory — what do you have?"],
-    ["\ud83d\udcb3 Get pre-approved",  "I want to see what I qualify for."],
-    ["\ud83d\udd11 Trade-in value",    "I have a trade-in I want to ask about."],
-    ["\ud83d\udcc5 Book a test drive", "I'd like to book a test drive."]
-  ]
+    [
+      "🚗 Browse inventory",
+      "I'm looking at inventory — what do you have?"
+    ],
+    [
+      "💳 Get pre-approved",
+      "I want to see what I qualify for."
+    ],
+    [
+      "🔑 Trade-in value",
+      "I have a trade-in I want to ask about."
+    ],
+    [
+      "📅 Book a test drive",
+      "I'd like to book a test drive."
+    ]
+  ],
+  "border": "#e6e6e6",
+  "control": "#cfdbe3",
+  "radius": 8,
+  "radiusPanel": 10,
+  "radiusBubble": 12,
+  "headerGradient": [
+    "#072431",
+    "#0d3446 55%",
+    "#232323"
+  ],
+  "headerRule": "#e60000"
 }
