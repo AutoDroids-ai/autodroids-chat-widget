@@ -5,7 +5,7 @@
  * manifest: its @main snapshot goes stale for up to 12h and purging does not
  * clear it. The pinned bundle it points to is still served by jsDelivr. */
 (function () {
-  var FALLBACK = { src: 'https://cdn.jsdelivr.net/gh/AutoDroids-ai/autodroids-chat-widget@d8482a2bab/dist/goautobahn.js', integrity: 'sha384-Jr9upDPQz5lb9Nr6ucbdDBTREcr8Wa2SgNot0Q8CI2njAfArlZzdMTtDEr6SC/+F' };
+  var FALLBACK = { src: 'https://cdn.jsdelivr.net/gh/AutoDroids-ai/autodroids-chat-widget@864cf2d6be/dist/goautobahn.js', integrity: 'sha384-Jr9upDPQz5lb9Nr6ucbdDBTREcr8Wa2SgNot0Q8CI2njAfArlZzdMTtDEr6SC/+F' };
   var MANIFEST = 'https://raw.githubusercontent.com/AutoDroids-ai/autodroids-chat-widget/main/dist/loader/goautobahn.json';
   var done = false;
   function inject(m) {
