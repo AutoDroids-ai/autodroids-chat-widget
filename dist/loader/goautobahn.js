@@ -3,7 +3,7 @@
  * Reads dist/loader/goautobahn.json fresh on every load, so deploys land without
  * a dealer-side edit and without waiting out jsDelivr's 7-day browser cache. */
 (function () {
-  var FALLBACK = { src: 'https://cdn.jsdelivr.net/gh/AutoDroids-ai/autodroids-chat-widget@ff8deb49d9/dist/goautobahn.js', integrity: 'sha384-fQYygyRIo0HAGIrzgieKrWg8kvzCWC5eq7xE7/xqMPjZ0xdxIul5tMa5tvsKOKSF' };
+  var FALLBACK = { src: 'https://cdn.jsdelivr.net/gh/AutoDroids-ai/autodroids-chat-widget@28b4ce1829/dist/goautobahn.js', integrity: 'sha384-Jr9upDPQz5lb9Nr6ucbdDBTREcr8Wa2SgNot0Q8CI2njAfArlZzdMTtDEr6SC/+F' };
   var MANIFEST = 'https://cdn.jsdelivr.net/gh/AutoDroids-ai/autodroids-chat-widget@main/dist/loader/goautobahn.json';
   var done = false;
   function inject(m) {
