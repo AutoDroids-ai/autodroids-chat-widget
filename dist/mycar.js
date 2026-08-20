@@ -30,9 +30,9 @@
   var DEALER = {
   "closebotSource": "YKejTuxKce8UG7pn",
   "brand": "#107cbd",
-  "brandDark": "#385f71",
-  "ink": "#302f2f",
-  "tint": "#eef6fb",
+  "brandDark": "#143c6e",
+  "ink": "#143c6e",
+  "tint": "#f2f3f8",
   "font": "Poppins,'Helvetica Neue',Arial,sans-serif",
   "fontUrl": "https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap",
   "avatar": "https://ddztmb1ahc6o7.cloudfront.net/mycar/wp-content/uploads/2025/10/22091901/android-chrome-512x512-1.png",
@@ -70,17 +70,19 @@
       "I'd like to book a test drive."
     ]
   ],
-  "border": "#ebebeb",
-  "control": "#d6dde2",
-  "radius": 4,
-  "radiusPanel": 6,
-  "radiusBubble": 6,
+  "border": "#e2e9f1",
+  "control": "#e2e9f1",
+  "radius": 3,
+  "radiusPanel": 10,
+  "radiusBubble": 14,
   "headerGradient": [
-    "#107cbd",
-    "#2b6d92 55%",
-    "#385f71"
+    "#143c6e"
   ],
-  "headerRule": "rgba(255,255,255,.28)"
+  "headerRule": "rgba(255,255,255,.18)",
+  "bubbleBg": "#f7fafd",
+  "bubbleText": "#0e2a4e",
+  "bubbleBorder": "#e2e9f1",
+  "bubbleSpine": false
 };
 
   // Generic defaults. Anything dealer-specific belongs in dealers/<name>.json;
@@ -106,6 +108,13 @@
     headerGradient: [],      // [] = flat ink. Entries may carry a stop, '#abc 55%'
     headerRule:     '',      // '' = brand
 
+    // Dealer-bubble surface. Defaults keep the plain grey card; set these to
+    // mirror a real card style from the dealer's own site.
+    bubbleBg:     '',        // '' = grey (or dark, if darkCanvas)
+    bubbleText:   '',
+    bubbleBorder: '',        // '' = no outline
+    bubbleSpine:  true,      // the 3px accent bar on the left edge
+
     loadClosebot:   true,
     closebotSource: '',      // REQUIRED — set per dealer
 
@@ -119,8 +128,8 @@
 
   // ── Styles ────────────────────────────────────────────────────────────────
   var canvas = CFG.darkCanvas ? '#0f1720' : '#fff';
-  var soft   = CFG.darkCanvas ? '#1d2836' : '#f1f1f1';
-  var softTx = CFG.darkCanvas ? '#e5e7eb' : '#232323';
+  var soft   = CFG.bubbleBg   || (CFG.darkCanvas ? '#1d2836' : '#f1f1f1');
+  var softTx = CFG.bubbleText || (CFG.darkCanvas ? '#e5e7eb' : '#232323');
   var chev   = encodeURIComponent(CFG.ink);
 
   function rgba(hex, a) {
@@ -165,9 +174,11 @@
 
     /* 3. Dealer vs customer bubbles */
     '[data-cb] .cb-msg{padding:11px 14px!important;line-height:1.45!important;font-size:14px!important}',
-    '[data-cb] .cb-msg.bot{background:' + soft + '!important;color:' + softTx +
-      '!important;border-left:3px solid var(--cw-red)!important;border-radius:' +
-      rSm + 'px ' + rB + 'px ' + rB + 'px ' + rSm + 'px!important}',
+    '[data-cb] .cb-msg.bot{background:' + soft + '!important;color:' + softTx + '!important;' +
+      (CFG.bubbleBorder ? 'border:1px solid ' + CFG.bubbleBorder + '!important;' : '') +
+      (CFG.bubbleSpine ? 'border-left:3px solid var(--cw-red)!important;' : '') +
+      'border-radius:' + (CFG.bubbleSpine ? rSm + 'px ' + rB + 'px ' + rB + 'px ' + rSm + 'px' : rB + 'px') +
+      '!important}',
     '[data-cb] .cb-msg.lead{background:var(--cw-ink)!important;color:#fff!important;border-radius:' +
       rB + 'px ' + rB + 'px ' + rXs + 'px ' + rB + 'px!important}',
     '[data-cb] .cb-msg.bot a{color:var(--cw-red)!important;text-decoration:underline!important}',

@@ -27,7 +27,7 @@ eval(fs.readFileSync(process.argv[2], 'utf8'));
 
 const checks = {
   'exports __cwWidget':      typeof global.window.__cwWidget === 'function',
-  'dealer bubble (.cb-msg.bot)':   /\.cb-msg\.bot\{background:#f1f1f1!important/.test(styleText),
+  'dealer bubble (.cb-msg.bot)':   /.cb-msg.bot{background:#[0-9a-fA-F]{6}!important;color:#[0-9a-fA-F]{6}!important/.test(styleText),
   'customer bubble (.cb-msg.lead)': /\.cb-msg\.lead\{background:var\(--cw-ink\)/.test(styleText),
   'token override !important': /--cb-color:var\(--cw-red\)!important/.test(styleText),
   'chevron URL-encoded':      /stroke='%23[0-9a-fA-F]{6}'/.test(styleText),

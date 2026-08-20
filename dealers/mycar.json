@@ -1,12 +1,12 @@
 {
   "_site": "https://www.mycar.ca/",
   "_account": "MyCar",
-  "_palette": "from ed-template-gm-child-gmc/child.23e95.css — #107cbd primary, #385f71 button hover, #302f2f dark, #ebebeb hairline; radii 3-5px",
+  "_palette": "measured on /dealership/ottawa/: CTA navy #143c6e, OUR LOCATION card bg #f7fafd / border #e2e9f1 / radius 14px / text #0e2a4e, section bg #f2f3f8, accent #107cbd",
   "closebotSource": "YKejTuxKce8UG7pn",
   "brand": "#107cbd",
-  "brandDark": "#385f71",
-  "ink": "#302f2f",
-  "tint": "#eef6fb",
+  "brandDark": "#143c6e",
+  "ink": "#143c6e",
+  "tint": "#f2f3f8",
   "font": "Poppins,'Helvetica Neue',Arial,sans-serif",
   "fontUrl": "https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap",
   "avatar": "https://ddztmb1ahc6o7.cloudfront.net/mycar/wp-content/uploads/2025/10/22091901/android-chrome-512x512-1.png",
@@ -44,16 +44,18 @@
       "I'd like to book a test drive."
     ]
   ],
-  "border": "#ebebeb",
-  "control": "#d6dde2",
-  "radius": 4,
-  "radiusPanel": 6,
-  "radiusBubble": 6,
+  "border": "#e2e9f1",
+  "control": "#e2e9f1",
+  "radius": 3,
+  "radiusPanel": 10,
+  "radiusBubble": 14,
   "headerGradient": [
-    "#107cbd",
-    "#2b6d92 55%",
-    "#385f71"
+    "#143c6e"
   ],
-  "headerRule": "rgba(255,255,255,.28)",
-  "_avatar": "their own site CDN (same asset pipeline as mycar.ca), not a GHL sub-account"
+  "headerRule": "rgba(255,255,255,.18)",
+  "_avatar": "their own site CDN (same asset pipeline as mycar.ca), not a GHL sub-account",
+  "bubbleBg": "#f7fafd",
+  "bubbleText": "#0e2a4e",
+  "bubbleBorder": "#e2e9f1",
+  "bubbleSpine": false
 }
