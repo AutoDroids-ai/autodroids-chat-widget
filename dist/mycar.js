@@ -30,8 +30,8 @@
   var DEALER = {
   "closebotSource": "YKejTuxKce8UG7pn",
   "brand": "#107cbd",
-  "brandDark": "#143c6e",
-  "ink": "#143c6e",
+  "brandDark": "#0e2a4e",
+  "ink": "#0e2a4e",
   "tint": "#f2f3f8",
   "font": "Lato,'Helvetica Neue',Helvetica,Arial,sans-serif",
   "fontUrl": "https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap",
@@ -73,10 +73,10 @@
   "border": "#e2e9f1",
   "control": "#e2e9f1",
   "radius": 3,
-  "radiusPanel": 10,
-  "radiusBubble": 14,
+  "radiusPanel": 3,
+  "radiusBubble": 7,
   "headerGradient": [
-    "#143c6e"
+    "#0e2a4e"
   ],
   "headerRule": "rgba(255,255,255,.18)",
   "bubbleBg": "#f7fafd",

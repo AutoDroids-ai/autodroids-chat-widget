@@ -1,11 +1,11 @@
 {
   "_site": "https://www.mycar.ca/",
   "_account": "MyCar",
-  "_palette": "measured on /dealership/ottawa/: CTA navy #143c6e, OUR LOCATION card bg #f7fafd / border #e2e9f1 / radius 14px / text #0e2a4e, section bg #f2f3f8, accent #107cbd",
+  "_palette": "measured on /dealership/ottawa/: dark blue #0e2a4e, accent #107cbd, OUR LOCATION card bg #f7fafd / border #e2e9f1 / text #0e2a4e, section bg #f2f3f8. Radii 3px, bubbles 7px.",
   "closebotSource": "YKejTuxKce8UG7pn",
   "brand": "#107cbd",
-  "brandDark": "#143c6e",
-  "ink": "#143c6e",
+  "brandDark": "#0e2a4e",
+  "ink": "#0e2a4e",
   "tint": "#f2f3f8",
   "font": "Lato,'Helvetica Neue',Helvetica,Arial,sans-serif",
   "fontUrl": "https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap",
@@ -47,10 +47,10 @@
   "border": "#e2e9f1",
   "control": "#e2e9f1",
   "radius": 3,
-  "radiusPanel": 10,
-  "radiusBubble": 14,
+  "radiusPanel": 3,
+  "radiusBubble": 7,
   "headerGradient": [
-    "#143c6e"
+    "#0e2a4e"
   ],
   "headerRule": "rgba(255,255,255,.18)",
   "_avatar": "their own site CDN (same asset pipeline as mycar.ca), not a GHL sub-account",
